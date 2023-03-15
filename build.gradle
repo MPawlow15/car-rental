@@ -18,18 +18,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-actuator:3.0.1'
-    implementation 'org.json:json:20210307'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
-    implementation 'mysql:mysql-connector-java:8.0.28'
     implementation 'com.google.code.gson:gson'
-    implementation 'com.vaadin:vaadin-spring-boot-starter:15.0.3'
-    implementation 'com.github.prominence:openweathermap-java-api:3.4.1'
+    implementation 'com.github.prominence:openweathermap-api:2.3.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java:8.0.28'
     runtimeOnly('com.h2database:h2')
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
 
 test {
     useJUnitPlatform()
