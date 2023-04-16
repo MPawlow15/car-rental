@@ -5,6 +5,7 @@ import com.rental.domain.dto.HireDto;
 import com.rental.exception.HireNotFoundException;
 import com.rental.mapper.HireMapper;
 import com.rental.service.HireDbService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class HireController {
         this.hireMapper = hireMapper;
     }
 
+    @ApiOperation(value = "Create a new hire")
     @PostMapping
     public ResponseEntity<HireDto> createHire(@RequestBody HireDto hireDto) {
         Hire hire = hireMapper.mapToHire(hireDto);
@@ -31,6 +33,7 @@ public class HireController {
         return new ResponseEntity<>(hireMapper.mapToHireDto(hire), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Get all hires")
     @GetMapping
     public ResponseEntity<List<HireDto>> getAllHires() {
         List<Hire> hires = hireDbService.getAllHires();
@@ -40,12 +43,14 @@ public class HireController {
         return new ResponseEntity<>(hireDtoList, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get a hire by id")
     @GetMapping("/{id}")
     public ResponseEntity<HireDto> getHire(@PathVariable Long id) throws HireNotFoundException {
         Hire hire = hireDbService.getHireById(id);
         return new ResponseEntity<>(hireMapper.mapToHireDto(hire), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Update a hire")
     @PutMapping("/{id}")
     public ResponseEntity<HireDto> updateHire(@PathVariable Long id, @RequestBody HireDto hireDto) {
         Hire hire = hireMapper.mapToHire(hireDto);
@@ -53,6 +58,7 @@ public class HireController {
         return new ResponseEntity<>(hireMapper.mapToHireDto(hire), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Delete a hire")
     @DeleteMapping("/{id}")
     public ResponseEntity<HireDto> deleteHire(@PathVariable Long id) {
         hireDbService.deleteHire(id);

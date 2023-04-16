@@ -5,6 +5,7 @@ import com.rental.domain.dto.ClientDto;
 import com.rental.exception.ClientNotFoundException;
 import com.rental.mapper.ClientMapper;
 import com.rental.service.ClientDbService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class ClientController {
         this.clientMapper = clientMapper;
     }
 
+    @ApiOperation(value = "Create a new client")
     @PostMapping
     public ResponseEntity<ClientDto> createClient(@RequestBody ClientDto clientDto) {
         Client client = clientMapper.mapToClient(clientDto);
@@ -31,6 +33,7 @@ public class ClientController {
         return new ResponseEntity<>(clientMapper.mapToClientDto(client), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Get all clients")
     @GetMapping
     public ResponseEntity<List<ClientDto>> getAllClients() {
         List<Client> clients = clientDbService.getAllClients();
@@ -40,12 +43,14 @@ public class ClientController {
         return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get a client by id")
     @GetMapping("/{id}")
     public ResponseEntity<ClientDto> getClient(@PathVariable Long id) throws ClientNotFoundException {
         Client client = clientDbService.getClient(id);
         return new ResponseEntity<>(clientMapper.mapToClientDto(client), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Update a client")
     @PutMapping("/{id}")
     public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientDto clientDto) {
         Client client = clientMapper.mapToClient(clientDto);
@@ -53,6 +58,7 @@ public class ClientController {
         return new ResponseEntity<>(clientMapper.mapToClientDto(client), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Delete a client")
     @DeleteMapping("/{id}")
     public ResponseEntity<ClientDto> deleteClient(@PathVariable Long id) {
         clientDbService.deleteClient(id);
