@@ -29,4 +29,13 @@ public class CarDbService {
     public void deleteCar(final Long id) {
         carRepository.deleteById(id);
     }
+
+    public Car updateCar(final Long id, final Car car) throws CarNotFoundException {
+        Car carToUpdate = getCar(id);
+        carToUpdate.setBrand(car.getBrand());
+        carToUpdate.setModel(car.getModel());
+        carToUpdate.setColor(car.getColor());
+        carToUpdate.setDailyPrice(car.getDailyPrice());
+        return carRepository.save(carToUpdate);
+    }
 }

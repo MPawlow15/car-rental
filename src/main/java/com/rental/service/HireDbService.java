@@ -31,4 +31,12 @@ public class HireDbService {
     public void deleteHire(Long id) {
         hireRepository.deleteById(id);
     }
+
+    public Hire updateHire(Long id, Hire hire) throws HireNotFoundException {
+        Hire hireToUpdate = getHireById(id);
+        hireToUpdate.setDateOfRental(hire.getDateOfRental());
+        hireToUpdate.setDateOfReturn(hire.getDateOfReturn());
+        hireToUpdate.setPenalty(hire.getPenalty());
+        return hireRepository.save(hireToUpdate);
+    }
 }

@@ -3,6 +3,7 @@ package com.rental.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -13,13 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Entity
+@NoArgsConstructor
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "reservation")
-    private List<Hire> hires = new ArrayList<>();
 
     @Column(name = "start_date", columnDefinition = "DATE")
     private java.sql.Date startDate;
@@ -35,6 +34,9 @@ public class Reservation {
 
     @Column(name = "unpaid")
     private Boolean unpaid;
+
+    @OneToMany(mappedBy = "reservation")
+    private List<Hire> hires = new ArrayList<>();
 
     public Reservation(Date startDate, Date endDate, boolean equipment, boolean insurance, boolean unpaid) {
         this.startDate = startDate;

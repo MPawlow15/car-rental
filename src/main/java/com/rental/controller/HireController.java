@@ -52,9 +52,9 @@ public class HireController {
 
     @ApiOperation(value = "Update a hire")
     @PutMapping("/{id}")
-    public ResponseEntity<HireDto> updateHire(@PathVariable Long id, @RequestBody HireDto hireDto) {
+    public ResponseEntity<HireDto> updateHire(@PathVariable Long id, @RequestBody HireDto hireDto) throws HireNotFoundException{
         Hire hire = hireMapper.mapToHire(hireDto);
-        hireDbService.addHire(hire);
+        hireDbService.updateHire(id, hire);
         return new ResponseEntity<>(hireMapper.mapToHireDto(hire), HttpStatus.OK);
     }
 

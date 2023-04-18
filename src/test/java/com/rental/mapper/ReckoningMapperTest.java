@@ -32,7 +32,7 @@ public class ReckoningMapperTest {
     @Test
     public void shouldMapToReckoningDto() {
         //given
-        Reckoning reckoning = new Reckoning(1L, null, BigDecimal.valueOf(12.5), BigDecimal.valueOf(200.0),
+        Reckoning reckoning = new Reckoning(BigDecimal.valueOf(12.5), BigDecimal.valueOf(200.0),
                 BigDecimal.valueOf(50.0), BigDecimal.valueOf(262.5));
 
         //when

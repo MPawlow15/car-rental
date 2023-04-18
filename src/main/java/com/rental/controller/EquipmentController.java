@@ -52,9 +52,10 @@ public class EquipmentController {
 
     @ApiOperation(value = "Update an equipment")
     @PutMapping("/{id}")
-    public ResponseEntity<EquipmentDto> updateEquipment(@PathVariable Long id, @RequestBody EquipmentDto equipmentDto) {
+    public ResponseEntity<EquipmentDto> updateEquipment(@PathVariable Long id,
+                                                        @RequestBody EquipmentDto equipmentDto) throws EquipmentNotFoundException{
         Equipment equipment = equipmentMapper.mapToEquipment(equipmentDto);
-        equipmentDbService.saveEquipment(equipment);
+        equipmentDbService.updateEquipment(id, equipment);
         return new ResponseEntity<>(equipmentMapper.mapToEquipmentDto(equipment), HttpStatus.OK);
     }
 

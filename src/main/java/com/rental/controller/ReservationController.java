@@ -54,8 +54,8 @@ public class ReservationController {
     @PutMapping("/{id}")
     public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @RequestBody ReservationDto reservationDto) throws ReservationNotFoundException {
         Reservation reservation = reservationMapper.mapToReservation(reservationDto);
-        Reservation updatedReservation = reservationDbService.updateReservation(id, reservation);
-        return new ResponseEntity<>(reservationMapper.mapToReservationDto(updatedReservation), HttpStatus.OK);
+        reservationDbService.updateReservation(id, reservation);
+        return new ResponseEntity<>(reservationMapper.mapToReservationDto(reservation), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete a reservation")

@@ -52,9 +52,9 @@ public class CarController {
 
     @ApiOperation(value = "Update a car")
     @PutMapping("/{id}")
-    public ResponseEntity<CarDto> updateCar(@PathVariable Long id, @RequestBody CarDto carDto) {
+    public ResponseEntity<CarDto> updateCar(@PathVariable Long id, @RequestBody CarDto carDto) throws CarNotFoundException{
         Car car = carMapper.mapToCar(carDto);
-        carDbService.saveCar(car);
+        carDbService.updateCar(id, car);
         return new ResponseEntity<>(carMapper.mapToCarDto(car), HttpStatus.OK);
     }
 

@@ -29,4 +29,12 @@ public class ClientDbService {
     public void deleteClient(final Long id) {
         clientRepository.deleteById(id);
     }
+
+    public Client updateClient(final Long id, final Client client) throws ClientNotFoundException {
+        Client clientToUpdate = getClient(id);
+        clientToUpdate.setFirstName(client.getFirstName());
+        clientToUpdate.setLastName(client.getLastName());
+        clientToUpdate.setPhoneNumber(client.getPhoneNumber());
+        return clientRepository.save(clientToUpdate);
+    }
 }

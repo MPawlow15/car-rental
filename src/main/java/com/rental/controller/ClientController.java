@@ -52,9 +52,9 @@ public class ClientController {
 
     @ApiOperation(value = "Update a client")
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientDto clientDto) {
+    public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientDto clientDto) throws ClientNotFoundException{
         Client client = clientMapper.mapToClient(clientDto);
-        clientDbService.saveClient(client);
+        clientDbService.updateClient(id, client);
         return new ResponseEntity<>(clientMapper.mapToClientDto(client), HttpStatus.OK);
     }
 

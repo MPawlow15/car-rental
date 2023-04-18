@@ -54,8 +54,8 @@ public class ReckoningController {
     @PutMapping("/{id}")
     public ResponseEntity<ReckoningDto> updateReckoning(@PathVariable Long id, @RequestBody ReckoningDto reckoningDto) throws ReckoningNotFoundException {
         Reckoning reckoning = reckoningMapper.mapToReckoning(reckoningDto);
-        Reckoning updatedReckoning = reckoningDbService.updateReckoning(id, reckoning);
-        return new ResponseEntity<>(reckoningMapper.mapToReckoningDto(updatedReckoning), HttpStatus.OK);
+        reckoningDbService.updateReckoning(id, reckoning);
+        return new ResponseEntity<>(reckoningMapper.mapToReckoningDto(reckoning), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete a reckoning")

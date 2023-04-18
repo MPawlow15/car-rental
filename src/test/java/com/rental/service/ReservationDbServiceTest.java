@@ -35,9 +35,9 @@ class ReservationDbServiceTest {
     @Test
     void shouldReturnAllReservations() {
         // given
-        Reservation reservation1 = new Reservation(1L, null, new Date(1220227200000L), new Date(1220400000000L), true
-                , false, false);
-        Reservation reservation2 = new Reservation(2L, null, new Date(1220400000000L), new Date(1220572800000L),
+        Reservation reservation1 = new Reservation(new Date(2023,01,01), new Date(2023,02,01),
+                true, false, false);
+        Reservation reservation2 = new Reservation(new Date(2023,01,01), new Date(2023,02,01),
                 false, true, false);
         List<Reservation> expectedReservations = Arrays.asList(reservation1, reservation2);
         when(reservationRepository.findAll()).thenReturn(expectedReservations);
@@ -52,8 +52,8 @@ class ReservationDbServiceTest {
     @Test
     void shouldReturnReservationById() throws ReservationNotFoundException {
         // given
-        Reservation expectedReservation = new Reservation(1L, null, new Date(1220227200000L),
-                new Date(1220400000000L), true, false, false);
+        Reservation expectedReservation = new Reservation( new Date(2023,01,01),
+                new Date(2023,02,01), true, false, false);
         when(reservationRepository.findById(anyLong())).thenReturn(Optional.of(expectedReservation));
 
         // when
@@ -75,7 +75,7 @@ class ReservationDbServiceTest {
     @Test
     void shouldSaveReservation() {
         // given
-        Reservation reservation = new Reservation(null, null, new Date(1220227200000L), new Date(1220400000000L),
+        Reservation reservation = new Reservation(new Date(2023,01,01), new Date(2023,02,01),
                 true, false, false);
         when(reservationRepository.save(any(Reservation.class))).thenReturn(reservation);
 
@@ -88,10 +88,10 @@ class ReservationDbServiceTest {
     @Test
     void shouldUpdateReservation() throws ReservationNotFoundException {
         // given
-        Reservation existingReservation = new Reservation(1L, null, new Date(1220227200000L),
-                new Date(1220400000000L), true, false, false);
-        Reservation updatedReservation = new Reservation(null, null, new Date(1220227200000L),
-                new Date(1220400000000L), false, true, false);
+        Reservation existingReservation = new Reservation(new Date(2023,01,01),
+                new Date(2023,02,01), true, false, false);
+        Reservation updatedReservation = new Reservation(new Date(2023,01,01),
+                new Date(2023,02,01), false, true, false);
         when(reservationRepository.findById(anyLong())).thenReturn(Optional.of(existingReservation));
         when(reservationRepository.save(any(Reservation.class))).thenReturn(updatedReservation);
 

@@ -29,4 +29,11 @@ public class EquipmentDbService {
     public void deleteEquipment(Long id) {
         equipmentRepository.deleteById(id);
     }
+
+    public Equipment updateEquipment(Long id, Equipment equipment) throws EquipmentNotFoundException {
+        Equipment equipmentToUpdate = getEquipment(id);
+        equipmentToUpdate.setName(equipment.getName());
+        equipmentToUpdate.setPrice(equipment.getPrice());
+        return equipmentRepository.save(equipmentToUpdate);
+    }
 }
