@@ -107,27 +107,20 @@ class CarControllerTest {
     }
 
     @Test
-    void shouldUpdateCar() {
-        // given
-        Car updatedCar = new Car("", "Audi", "Model2", BigDecimal.valueOf(150));
-        CarDto updatedCarDto = new CarDto(1L,"", "Audi", "Model2", BigDecimal.valueOf(150));
-
+    void shouldUpdateCar() throws CarNotFoundException {
+        // Given
         when(carMapper.mapToCar(carDto)).thenReturn(car);
-        when(carDbService.saveCar(car)).thenReturn(car);
+        when(carDbService.updateCar(1L, car)).thenReturn(car);
         when(carMapper.mapToCarDto(car)).thenReturn(carDto);
-
-        when(carMapper.mapToCar(updatedCarDto)).thenReturn(updatedCar);
-        when(carDbService.saveCar(updatedCar)).thenReturn(updatedCar);
-        when(carMapper.mapToCarDto(updatedCar)).thenReturn(updatedCarDto);
 
         // when
         carController.createCar(carDto);
-        ResponseEntity<CarDto> updateResponse = carController.updateCar(1L, updatedCarDto);
+        ResponseEntity<CarDto> response = carController.updateCar(1L, carDto);
 
         // then
-        assertEquals(HttpStatus.OK, updateResponse.getStatusCode());
-        assertEquals(updatedCarDto, updateResponse.getBody());
-        verify(carDbService, times(1)).saveCar(updatedCar);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(carDto, response.getBody());
+        verify(carDbService, times(1)).updateCar(1L, car);
     }
 
 }

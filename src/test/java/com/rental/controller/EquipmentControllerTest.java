@@ -110,7 +110,7 @@ class EquipmentControllerTest {
     void shouldUpdateEquipment() throws EquipmentNotFoundException {
         // given
         when(equipmentMapper.mapToEquipment(equipmentDto)).thenReturn(equipment);
-        when(equipmentDbService.saveEquipment(equipment)).thenReturn(equipment);
+        when(equipmentDbService.updateEquipment(1L, equipment)).thenReturn(equipment);
         when(equipmentMapper.mapToEquipmentDto(equipment)).thenReturn(equipmentDto);
 
         // when
@@ -120,5 +120,6 @@ class EquipmentControllerTest {
         // then
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(equipmentDto, response.getBody());
+        verify(equipmentDbService, times(1)).updateEquipment(1L, equipment);
     }
 }

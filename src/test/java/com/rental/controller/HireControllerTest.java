@@ -95,7 +95,7 @@ class HireControllerTest {
     void shouldUpdateHire() throws HireNotFoundException {
         // given
         when(hireMapper.mapToHire(hireDto)).thenReturn(hire);
-        when(hireDbService.addHire(hire)).thenReturn(hire);
+        when(hireDbService.updateHire(1L, hire)).thenReturn(hire);
         when(hireMapper.mapToHireDto(hire)).thenReturn(hireDto);
 
         // when
@@ -104,6 +104,7 @@ class HireControllerTest {
         // then
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(hireDto, response.getBody());
+        verify(hireDbService, times(1)).updateHire(1L, hire);
     }
 
     @Test

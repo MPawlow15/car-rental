@@ -90,26 +90,20 @@ class ClientControllerTest {
     }
 
     @Test
-    void shouldUpdateClient() {
+    void shouldUpdateClient() throws ClientNotFoundException {
         // Given
-        Client updateClient = new Client("Jack", "Black", "987654321");
-        ClientDto updateClientDto = new ClientDto(1L, "Jack", "Black", "987654321");
         when(clientMapper.mapToClient(clientDto)).thenReturn(client);
-        when(clientDbService.saveClient(client)).thenReturn(client);
+        when(clientDbService.updateClient(1L, client)).thenReturn(client);
         when(clientMapper.mapToClientDto(client)).thenReturn(clientDto);
 
-        when(clientMapper.mapToClient(updateClientDto)).thenReturn(updateClient);
-        when(clientDbService.saveClient(updateClient)).thenReturn(updateClient);
-        when(clientMapper.mapToClientDto(updateClient)).thenReturn(updateClientDto);
-
-        // When
+        // when
         clientController.createClient(clientDto);
-        ResponseEntity<ClientDto> response = clientController.updateClient(1L, updateClientDto);
+        ResponseEntity<ClientDto> response = clientController.updateClient(1L, clientDto);
 
-        // Then
+        // then
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(updateClientDto, response.getBody());
-        verify(clientDbService, times(1)).saveClient(updateClient);
+        assertEquals(clientDto, response.getBody());
+        verify(clientDbService, times(1)).updateClient(1L, client);
     }
 
     @Test
